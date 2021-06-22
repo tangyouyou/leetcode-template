@@ -108,3 +108,11 @@ func threeSum(nums []int) [][]int {
 
 	return result
 }
+
+func threeSum(nums []int) [][]int {
+	if len(nums) == 0 {
+		return [][]int{}
+	}
+
+	sort.Ints()
+}

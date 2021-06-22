@@ -12,7 +12,7 @@ package leetcode
 func ReverseKGroup(head *ListNode, k int) *ListNode {
 	node := head
 
-	for i := 0; i < k; i ++ {
+	for i := 0; i < k; i++ {
 		if node == nil {
 			return head
 		}
@@ -47,10 +47,10 @@ func ReverseKGroup(head *ListNode, k int) *ListNode {
 		}
 		node = node.Next
 	}
-	nowHead := reverse(head, node)
+	newHead := reverse(head, node)
 	head.Next = ReverseKGroup(node, k)
 
-	return nowHead
+	return newHead
 }
 
 func reverse(first *ListNode, last *ListNode) *ListNode {
