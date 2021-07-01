@@ -1,25 +1,25 @@
-package leetcode
-
-func widthOfBinaryTree(root *TreeNode) int {
+func demo_662(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
 	if root.Left == nil && root.Right == nil {
 		return 1
 	}
-	res := 0
+
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, &TreeNode{0, root.Left, root.Right})
 
+	ans := 0
 	for len(queue) > 0 {
-		var left,right *int
-		qLen := len(queue)
-		for i := 0; i < qLen; i++ {
-			node := queue[0]
-			queue = queue[1:]
+		l := len(queue)
 
+		var left *int
+		var right *int
+		for i := 0; i < l; i++ {
+			node := queue[i]
+			newVal := 0
 			if node.Left != nil {
-				newVal := node.Val * 2
+				newVal = node.Val * 2
 				queue = append(queue, &TreeNode{newVal, node.Left.Left, node.Left.Right})
 				if left == nil || *left > newVal {
 					left = &newVal
@@ -28,9 +28,8 @@ func widthOfBinaryTree(root *TreeNode) int {
 					right = &newVal
 				}
 			}
-
 			if node.Right != nil {
-				newVal := node.Val * 2 + 1
+				newVal = node.Val * 2 + 1
 				queue = append(queue, &TreeNode{newVal, node.Right.Left, node.Right.Right})
 				if left == nil || *left > newVal {
 					left = &newVal
@@ -39,16 +38,14 @@ func widthOfBinaryTree(root *TreeNode) int {
 					right = &newVal
 				}
 			}
-
-			switch {
-			case left != nil && right == nil, left == nil && right != nil:
-				res = max(res, 1)
-			case left != nil && right != nil:
-				res = max(res, *right - *left  +1)
-			}
+		}
+		queue = queue[l:]
+		if (left == nil && right != nil) || left != nil && right == nil {
+			ans = max(ans, 1)
+		} else if left != nil && right != nil {
+			ans = max(ans, *right - *left + 1)
 		}
 	}
 
-	return res
+	return ans
 }
-
