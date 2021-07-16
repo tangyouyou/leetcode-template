@@ -1,3 +1,5 @@
+package leetcode
+
 // 冒泡
 func bubbleSort(nums []int) []int {
 	if len(nums) == 0 {
@@ -24,22 +26,22 @@ func HeapSort(arr []int) {
 	length := len(arr)
 	s := length / 2
 	for i := s; i >= 0; i-- {
-		heap(arr, i, length - 1)
+		heap(arr, i, length-1)
 	}
 	// 调整堆，从0开始调整，每次移除一个元素
-	for i := length - 1; i > 0; i--{
-		arr[i],arr[0] = arr[0],arr[i]
+	for i := length - 1; i > 0; i-- {
+		arr[i], arr[0] = arr[0], arr[i]
 		heap(arr, 0, i-1)
 	}
 }
 
 func heap(arr []int, i, end int) {
-	l := 2 * i + 1
+	l := 2*i + 1
 	if l > end {
 		return
 	}
 	n := l
-	r := 2 * i + 2
+	r := 2*i + 2
 	if r <= end && arr[r] > arr[l] {
 		n = r
 	}
@@ -94,4 +96,36 @@ func countingSort(nums []int, maxValue int) []int {
 	}
 
 	return nums
+}
+
+// 归并排序
+func mergeSort(nums []int) []int {
+	if len(nums) < 2 {
+		return nums
+	}
+	mid := len(nums) / 2
+	left := mergeSort(nums[0:mid])
+	right := mergeSort(nums[mid:])
+
+	return merge1(left, right)
+}
+
+func merge1(left []int, right []int) []int {
+	tmp := make([]int, 0)
+	i := 0
+	j := 0
+
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			tmp = append(tmp, left[i])
+			i++
+		} else {
+			tmp = append(tmp, right[j])
+			j++
+		}
+	}
+	tmp = append(tmp, left[i:]...)
+	tmp = append(tmp, right[j:]...)
+
+	return tmp
 }

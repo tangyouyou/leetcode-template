@@ -1,5 +1,6 @@
 package leetcode
 
+// 搜索排序数组的第一个和最后一个位置
 func searchRange(nums []int, target int) []int {
 	left := binary(nums, target)
 	if left == len(nums) || nums[left] != target {
